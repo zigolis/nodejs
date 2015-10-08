@@ -3,6 +3,7 @@ var express = require('express')
   , bodyParser = require('body-parser')
   , cookieParser = require('cookie-parser')
   , expressSession = require('express-session')
+  , methodOverride = require('method-override')
   , app = express();
 
 app.set('views', __dirname + '/views');
@@ -11,6 +12,7 @@ app.use(cookieParser('ntalk'));
 app.use(expressSession());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public'));
 
 load('models')
