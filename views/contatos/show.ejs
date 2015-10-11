@@ -4,13 +4,18 @@
 </header>
 
 <section>
-  <form action="/contato/<%- id %>?_method=delete" method="post">
+  <form action="/contato/<%- contato._id %>?_method=delete" method="post">
     <p><label>Nome:</label><%- contato.nome %></p>
     <p><label>E-mail:</label><%- contato.email %></p>
 
     <p>
-      <button type="submit">Excluir</button>
-      <a href="/contato/<%- id %>/editar">Editar</a>
+      <button type="submit" class="btn btn-primary btn-danger">
+        Excluir
+      </button>
+
+      <a href="/contato/<%- contato._id %>/editar" class="btn btn-primary">
+        Editar
+      </a>
     </p>
   </form>
 </section>

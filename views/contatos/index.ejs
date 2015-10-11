@@ -22,16 +22,23 @@
     </thead>
 
     <tbody>
-    <% contatos.forEach(function(contato, index) { %>
+    <% contatos.forEach(function(contato) { %>
       <tr>
         <td><%- contato.nome %></td>
         <td><%- contato.email %></td>
         <td>
-          <span id="notify_<%- contato.email %>">Offline</span>
+          <span id="notify_<%- contato.email %>" class="label">
+            Offline
+          </span>
         </td>
         <td>
-          <a href="/contato/<%- index %>">Detalhes</a>
-          <a href="/chat" id="chat_<%- contato.email %>">Conversar</a>
+          <a href="/contato/<%- contato._id %>" class="btn">
+            Detalhes
+          </a>
+
+          <a href="/chat" id="chat_<%- contato.email %>" class="btn">
+            Conversar
+          </a>
         </td>
       </tr>
     <% }) %>
