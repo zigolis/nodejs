@@ -10,7 +10,6 @@ module.exports = function(app) {
 
       if (email && nome) {
         var usuario = req.body.usuario;
-        console.log(usuario);
         usuario['contatos'] = [];
 
         req.session.usuario = usuario;
