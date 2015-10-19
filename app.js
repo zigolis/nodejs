@@ -13,7 +13,7 @@ var express = require('express')
   , store = new expressSession.MemoryStore()
   , mongoose = require('mongoose');
 
-global.db = mongoose.connect('mongodb://localhost:27017/ntalk');
+global.db = mongoose.connect('mongodb://localhost:27017/ntalk_test');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -62,3 +62,5 @@ app.use(error.serverError);
 server.listen(3000, function(){
   console.log("Ntalk no ar.");
 });
+
+module.exports = app;
