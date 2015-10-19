@@ -6,14 +6,16 @@ var express = require('express')
   , expressSession = require('express-session')
   , methodOverride = require('method-override')
   , error = require('./middlewares/error')
+  , redisAdapter = require('socket.io-redis')
+  , RedisStore = require('connect-redis')(expressSession)
   , app = express()
   , server = require('http').Server(app)
   , io = require('socket.io')(server)
   , cookie = cookieParser(SECRET)
-  , store = new expressSession.MemoryStore()
+  , store = new RedisStore({prefix: KEY})
   , mongoose = require('mongoose');
 
-global.db = mongoose.connect('mongodb://localhost:27017/ntalk_test');
+global.db = mongoose.connect('mongodb://localhost:27017/ntalk');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -30,6 +32,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public'));
 
+io.adapter(redisAdapter({host: 'localhost', port: 6379}));
 io.use(function(socket, next) {
   var data = socket.request;
 
