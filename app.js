@@ -5,9 +5,9 @@ var express = require('express')
   , cookieParser = require('cookie-parser')
   , expressSession = require('express-session')
   , methodOverride = require('method-override')
+  , error = require('./middlewares/error')
   , compression = require('compression')
   , csurf = require('csurf')
-  , error = require('./middlewares/error')
   , redisAdapter = require('socket.io-redis')
   , RedisStore = require('connect-redis')(expressSession)
   , app = express()
@@ -15,9 +15,6 @@ var express = require('express')
   , io = require('socket.io')(server)
   , cookie = cookieParser(cfg.SECRET)
   , store = new RedisStore({prefix: cfg.KEY});
-  // , mongoose = require('mongoose');
-
-// global.db = mongoose.connect('mongodb://localhost:27017/ntalk');
 
 app.disable('x-powered-by');
 app.set('views', __dirname + '/views');
@@ -29,7 +26,7 @@ app.use(expressSession({
   name: cfg.KEY,
   resave: true,
   saveUninitialized: true,
-  store: cfg.store
+  store: store
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
