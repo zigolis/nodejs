@@ -5,6 +5,7 @@
 
 <section>
   <form action="/contato/<%- contato._id %>?_method=put" method="post">
+    <input type="hidden" name="_csrf" value="<%- _csrf %>">
     <label>Nome:</label>
     <input type="text" name="contato[nome]" value="<%- contato.nome %>">
 

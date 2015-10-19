@@ -6,6 +6,7 @@ var express = require('express')
   , expressSession = require('express-session')
   , methodOverride = require('method-override')
   , compression = require('compression')
+  , csurf = require('csurf')
   , error = require('./middlewares/error')
   , redisAdapter = require('socket.io-redis')
   , RedisStore = require('connect-redis')(expressSession)
@@ -35,6 +36,11 @@ app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public', {
   maxAge: 3600000
 }));
+app.use(csurf());
+app.use(function(req, res, next) {
+  res.locals._csrf = req.csrfToken();
+  next();
+});
 
 io.adapter(redisAdapter({host: 'localhost', port: 6379}));
 io.use(function(socket, next) {
