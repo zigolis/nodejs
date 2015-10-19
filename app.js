@@ -19,6 +19,7 @@ var express = require('express')
 
 global.db = mongoose.connect('mongodb://localhost:27017/ntalk');
 
+app.disable(‘x-powered-by’)
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(compression());
